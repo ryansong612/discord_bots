@@ -34,14 +34,8 @@ async def on_voice_state_update(member, before, after):
     if before.channel is None or after.channel is not None:
         return
 
-    disconnect_time = datetime.now(timezone.utc)
-    await discord.utils.sleep_until(disconnect_time + timedelta(seconds=1))
-
-    async for entry in member.guild.audit_logs(action=discord.AuditLogAction.member_disconnect, limit=5):
-        if entry.created_at >= disconnect_time:
-            increment(member.id)
-            print(f"{member.name} was force-disconnected. Total: {get_count(member.id)}")
-        break
+    increment(member.id)
+    print(f"{member.name} disconnected. Total: {get_count(member.id)}")
 
 @bot.command()
 async def leaderboard(ctx):
@@ -63,6 +57,6 @@ async def leaderboard(ctx):
 async def disconnects(ctx, member: discord.Member = None):
     member = member or ctx.author
     count = get_count(member.id)
-    await ctx.send(f"{member.name} 被踢飞了 {count} 次")
+    await ctx.send(f"{member.name} 自飞+被踢飞了 {count} 次")
 
 bot.run(os.environ["TOKEN"])
