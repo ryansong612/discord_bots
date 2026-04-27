@@ -54,7 +54,9 @@ async def on_voice_state_update(member, before, after):
             add_minutes(member.id, minutes)
             total = get_minutes(member.id)
             channel = before.channel
-            await channel.send(f"{member.name} spent {minutes:.1f} mins in call. Total balance: {total:.1f} mins 💰")
+            s = f"{member.name} spent {minutes:.1f} mins in call. Total balance: {total:.1f} mins 💰"
+            print(s)
+            await channel.send(s)
 
 @bot.command()
 async def leaderboard(ctx):
