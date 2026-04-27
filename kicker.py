@@ -54,7 +54,7 @@ async def on_voice_state_update(member, before, after):
             add_minutes(member.id, minutes)
             total = get_minutes(member.id)
             channel = before.channel
-            s = f"{member.name} 在该通话赚了 {minutes:.1f} 飞币。余额: {total:.1f} 飞币 💰"
+            s = f"{member.name} 在该通话赚了 {minutes:.1f} 飞币，余额: {total:.1f} 飞币 💰"
             print(s)
             await channel.send(s)
 
