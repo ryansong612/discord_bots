@@ -63,6 +63,6 @@ async def leaderboard(ctx):
 async def disconnects(ctx, member: discord.Member = None):
     member = member or ctx.author
     count = get_count(member.id)
-    await ctx.send(f"{member.name} 被踢飞了 {count} 次.")
+    await ctx.send(f"{member.name} 被踢飞了 {count} 次")
 
 bot.run(os.environ["TOKEN"])
