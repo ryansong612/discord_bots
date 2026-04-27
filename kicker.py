@@ -49,13 +49,13 @@ async def leaderboard(ctx):
     rows = cursor.fetchall()
 
     if not rows:
-        await ctx.send("No force-disconnects recorded yet.")
+        await ctx.send("无人被飞")
         return
 
     lines = []
     for i, (user_id, count) in enumerate(rows, 1):
         user = await bot.fetch_user(user_id)
-        lines.append(f"{i}. {user.name} — {count} kicks")
+        lines.append(f"{i}. {user.name} — {count} 航次")
 
     await ctx.send("\n".join(lines))
 
@@ -63,6 +63,6 @@ async def leaderboard(ctx):
 async def disconnects(ctx, member: discord.Member = None):
     member = member or ctx.author
     count = get_count(member.id)
-    await ctx.send(f"{member.name} has been force-disconnected {count} times.")
+    await ctx.send(f"{member.name} 被踢飞了 {count} 次.")
 
 bot.run(os.environ["TOKEN"])
