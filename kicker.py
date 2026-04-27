@@ -11,7 +11,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 # SQLite setup
-conn = sqlite3.connect("kicks.db")
+conn = sqlite3.connect("/data/kicks.db")
 cursor = conn.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS kicks (user_id INTEGER PRIMARY KEY, count INTEGER DEFAULT 0)")
 conn.commit()
