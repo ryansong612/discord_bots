@@ -53,10 +53,12 @@ async def on_voice_state_update(member, before, after):
             minutes = duration.total_seconds() / 60
             add_minutes(member.id, minutes)
             total = get_minutes(member.id)
-            channel = before.channel
             s = f"{member.name} 在该通话赚了 {minutes:.1f} 飞币，余额: {total:.1f} 飞币 💰"
             print(s)
-            await channel.send(s)
+        text_channel = discord.utils.get(member.guild.text_channels, name=before.channel.name) \
+                    or discord.utils.get(member.guild.text_channels, name="general") \
+                    or member.guild.text_channels[0]
+        await text_channel.send(s)
 
 @bot.command()
 async def leaderboard(ctx):
