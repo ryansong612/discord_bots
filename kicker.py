@@ -41,4 +41,6 @@ async def leaderboard(ctx):
 
     await ctx.send("\n".join(lines))
 
-bot.run(os.environ["TOKEN"])
+
+if __name__ == "__main__":
+    bot.run(os.environ["TOKEN"])
