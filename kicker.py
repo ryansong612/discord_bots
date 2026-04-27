@@ -34,14 +34,14 @@ async def on_voice_state_update(member, before, after):
     if before.channel is None or after.channel is not None:
         return
 
-    await discord.utils.sleep_until(datetime.now(timezone.utc) + timedelta(seconds=1))
+    disconnect_time = datetime.now(timezone.utc)
+    await discord.utils.sleep_until(disconnect_time + timedelta(seconds=1))
 
     async for entry in member.guild.audit_logs(action=discord.AuditLogAction.member_disconnect, limit=5):
-        age = (datetime.now(timezone.utc) - entry.created_at).total_seconds()
-        if age < 5:
+        if entry.created_at >= disconnect_time:
             increment(member.id)
             print(f"{member.name} was force-disconnected. Total: {get_count(member.id)}")
-            break
+        break
 
 @bot.command()
 async def leaderboard(ctx):
